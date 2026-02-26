@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>♡ Сайтик от санёчка ♡</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  background: url("vele.png") no-repeat center center fixed;
+  background-size: cover;
+}
+
+.container {
+  margin: 40px auto;
+  width: 700px;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.9); 
+}
+
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #fff;
+  text-shadow: 0 0 12px rgba(0,0,0,0.9); 
+}
+
+input, textarea {
+  width: 90%;
+  margin: 12px 0;
+  padding: 12px;
+  font-size: 15px;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.8); 
+  transition: 0.3s;
+}
+input:focus, textarea:focus {
+  background: rgba(255,255,255,0.15);
+  box-shadow: 0 0 15px rgba(0,0,0,1);
+}
+
+button {
+  background: linear-gradient(90deg, #000000, #222222);
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: 0.3s;
+  box-shadow: 0 0 15px rgba(0,0,0,0.9);
+}
+button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(0,0,0,1);
+}
+
+.preview {
+  position: relative;
+  display: inline-block;
+  margin-top: 25px;
+}
+.preview img {
+  max-width: 100%;
+  border: none;
+  border-radius: 0;
+}
+.overlay {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 11px;
+  text-align: left;
+}
+
+
+.me {
+  font-size: 8px;
+  color: #ED93EA;
+  text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000,
+               -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000;
+}
+.do {
+  font-size: 8px;
+  color: #35658B;
+  text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000,
+               -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>♡ Сайтик от санёчка ♡</h2>
+  <input type="file" id="photo" accept="image/*" onchange="loadPhoto(event)">
+  <input type="text" id="nick" placeholder="Напиши Nick_Name">
+  <textarea id="text" rows="3" placeholder="Напиши RP отыгровку (/me или /do)"></textarea>
+  <button onclick="formatText()">Готово</button>
+  <button onclick="saveImage()">Сохранить картинку</button>
+  
+  <div class="preview" id="preview">
+    <img id="output" src="" alt="">
+    <div class="overlay" id="overlay"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<script>
+let globalID = null;
+
+function loadPhoto(event) {
+  const output = document.getElementById('output');
+  output.src = URL.createObjectURL(event.target.files[0]);
+}
+
+function randomID() {
+  return Math.floor(Math.random() * 1001);
+}
+
+function formatText() {
+  const nick = document.getElementById('nick').value;
+  const text = document.getElementById('text').value.trim();
+  const overlay = document.getElementById('overlay');
+
+  if (!globalID) {
+    globalID = randomID();
+  }
+
+  const commands = text.split("/").filter(cmd => cmd.trim() !== "");
+
+  commands.forEach(cmd => {
+    let newLine = "";
+    if (cmd.startsWith("me")) {
+      const content = cmd.replace("me", "").trim();
+      newLine = `<div class="me">${nick} [${globalID}] ${content}</div>`;
+    } else if (cmd.startsWith("do")) {
+      const content = cmd.replace("do", "").trim();
+      newLine = `<div class="do">${content}. - | ${nick} [${globalID}]</div>`;
+    } else {
+      newLine = `<div>${cmd}</div>`;
+    }
+    overlay.innerHTML += newLine;
+  });
+
+  document.getElementById('text').value = "";
+}
+
+function saveImage() {
+  const preview = document.getElementById('preview');
+  html2canvas(preview, {scale: 2, backgroundColor: null}).then(canvas => {
+    const link = document.createElement('a');
+    link.download = 'rp_image.png';
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  });
+}
+</script>
+</body>
+</html>
