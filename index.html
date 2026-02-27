@@ -16,7 +16,9 @@ body {
 
 .container {
   margin: 40px auto;
-  width: 700px;
+  width: 900px; /* увеличили ширину чтобы влезло два блока */
+  display: flex;
+  gap: 20px;
   background: rgba(0,0,0,0.6);
   backdrop-filter: blur(12px);
   padding: 30px;
@@ -24,12 +26,29 @@ body {
   box-shadow: 0 0 25px rgba(0,0,0,0.9); 
 }
 
+.main {
+  flex: 2;
+}
+
+.side {
+  flex: 1;
+  background: rgba(0,0,0,0.6);
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.8);
+}
 
 h2 {
   margin-bottom: 20px;
   font-size: 28px;
   color: #fff;
   text-shadow: 0 0 12px rgba(0,0,0,0.9); 
+}
+
+h3 {
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 10px;
 }
 
 input, textarea {
@@ -43,27 +62,20 @@ input, textarea {
   background: rgba(255,255,255,0.08);
   color: #fff;
   box-shadow: inset 0 0 8px rgba(0,0,0,0.8); 
-  transition: 0.3s;
 }
-input:focus, textarea:focus {
-  background: rgba(255,255,255,0.15);
-  box-shadow: 0 0 15px rgba(0,0,0,1);
-}
-
 button {
   background: linear-gradient(90deg, #000000, #222222);
   border: none;
-  padding: 12px 24px;
-  font-size: 16px;
+  padding: 8px 16px;
+  font-size: 14px;
   color: #fff;
   cursor: pointer;
-  border-radius: 12px;
-  transition: 0.3s;
-  box-shadow: 0 0 15px rgba(0,0,0,0.9);
+  border-radius: 10px;
+  margin: 5px;
 }
 button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 25px rgba(0,0,0,1);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0,0,0,1);
 }
 
 .preview {
@@ -74,7 +86,6 @@ button:hover {
 .preview img {
   max-width: 100%;
   border: none;
-  border-radius: 0;
 }
 .overlay {
   position: absolute;
@@ -83,7 +94,6 @@ button:hover {
   font-size: 11px;
   text-align: left;
 }
-
 
 .me {
   font-size: 8px;
@@ -101,23 +111,36 @@ button:hover {
 </head>
 <body>
 <div class="container">
-  <h2>♡ Сайтик от санёчка ♡</h2>
-  <input type="file" id="photo" accept="image/*" onchange="loadPhoto(event)">
-  <input type="text" id="nick" placeholder="Напиши Nick_Name">
-  <textarea id="text" rows="3" placeholder="Напиши RP отыгровку (/me или /do)"></textarea>
-  <button onclick="formatText()">Готово</button>
-  <button onclick="saveImage()">Сохранить картинку</button>
-  
-  <div class="preview" id="preview">
-    <img id="output" src="" alt="">
-    <div class="overlay" id="overlay"></div>
+  <!-- основное окно -->
+  <div class="main">
+    <h2>♡ Сайтик от санёчка ♡</h2>
+    <input type="file" id="photo" accept="image/*" onchange="loadPhoto(event)">
+    <input type="text" id="nick" placeholder="Напиши Nick_Name">
+    <textarea id="text" rows="3" placeholder="Напиши RP отыгровку (/me или /do)"></textarea>
+    <button onclick="formatText()">Готово</button>
+    <button onclick="saveImage()">Сохранить картинку</button>
+    
+    <div class="preview" id="preview">
+      <img id="output" src="" alt="">
+      <div class="overlay" id="overlay"></div>
+    </div>
+  </div>
+
+  <!-- маленькое окно справа -->
+  <div class="side">
+    <h3>Генерация RP</h3>
+    <textarea id="genInput" rows="3" placeholder="Напиши задание (например: помыть посуду)"></textarea>
+    <button onclick="generateRP()">Сгенерировать</button>
+    <button onclick="insertRP()">Вставить</button>
   </div>
 </div>
 
+<script src="https://js.puter.com/v2/"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <script>
 let globalID = null;
+let generatedText = "";
 
 function loadPhoto(event) {
   const output = document.getElementById('output');
@@ -164,6 +187,23 @@ function saveImage() {
     link.href = canvas.toDataURL("image/png");
     link.click();
   });
+}
+
+// генерация через Puter.js
+async function generateRP() {
+  const input = document.getElementById("genInput");
+  const prompt = "Сгенерируй RP отыгровку /me и /do про: " + input.value;
+  const result = await puter.ai.chat(prompt);
+  generatedText = result;
+  input.value = result; // заменяем текст на сгенерированный
+}
+
+// вставка в основное поле и сразу на картинку
+function insertRP() {
+  if (generatedText) {
+    document.getElementById("text").value = generatedText;
+    formatText(); // сразу отрисовываем на картинке
+  }
 }
 </script>
 </body>
