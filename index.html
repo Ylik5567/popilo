@@ -16,7 +16,7 @@ body {
 
 .container {
   margin: 40px auto;
-  width: 900px; /* увеличили ширину чтобы влезло два блока */
+  width: 900px;
   display: flex;
   gap: 20px;
   background: rgba(0,0,0,0.6);
@@ -64,10 +64,10 @@ input, textarea {
   box-shadow: inset 0 0 8px rgba(0,0,0,0.8); 
 }
 textarea {
-  resize: none; /* запрет на растягивание */
+  resize: none;
 }
 #genInput {
-  height: 200px; /* фиксированная высота вниз */
+  height: 200px;
 }
 button {
   background: linear-gradient(90deg, #000000, #222222);
@@ -101,10 +101,9 @@ button:hover {
   text-align: left;
 }
 
-
 .me {
-  font-size: 5px;
-  font-weight: 400; /* тонкий шрифт */
+  font-size: 7px;
+  font-weight: 400;
   font-family: Arial, sans-serif;
   color: #ED93EA;
   text-shadow: -0.3px -0.3px 0 #000, 0.3px -0.3px 0 #000,
@@ -112,14 +111,47 @@ button:hover {
 }
 
 .do {
-  font-size: 5px;
-  font-weight: 400; /* тонкий шрифт */
+  font-size: 7px;
+  font-weight: 400;
   font-family: Arial, sans-serif;
   color: #35658B;
   text-shadow: -0.3px -0.3px 0 #000, 0.3px -0.3px 0 #000,
                -0.3px 0.3px 0 #000, 0.3px 0.3px 0 #000;
 }
 
+/* Лоадер */
+#loadingBox {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  padding: 15px 30px;
+  border-radius: 15px;
+  display: none;
+  align-items: center;
+  gap: 15px;
+  font-size: 18px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.9);
+  animation: fadeIn 0.5s ease;
+}
+
+#loadingBox img {
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
 </style>
 </head>
 <body>
@@ -146,6 +178,12 @@ button:hover {
     <button onclick="generateRP()">Сгенерировать</button>
     <button onclick="insertRP()">Вставить</button>
   </div>
+</div>
+
+<!-- Лоадер -->
+<div id="loadingBox">
+  <img src="tito.png" alt="loading">
+  <span>Генерируем…</span>
 </div>
 
 <script src="https://js.puter.com/v2/"></script>
@@ -202,9 +240,16 @@ function saveImage() {
   });
 }
 
+
+
 // генерация через Puter.js
 async function generateRP() {
   const input = document.getElementById("genInput");
+  const loadingBox = document.getElementById("loadingBox");
+  
+  // показать лоадер
+  loadingBox.style.display = "flex";
+
   const prompt = `
 Сгенерируй только RP-отыгровки для игры.
 Формат: каждая строка начинается с /me или /do.
@@ -212,9 +257,18 @@ async function generateRP() {
 Сделай минимум 8 строк и максимум 10 строк.
 Тема: ${input.value}
 `;
-  const result = await puter.ai.chat(prompt);
-  generatedText = result;
-  input.value = result; // заменяем текст на сгенерированный
+
+  try {
+    const result = await puter.ai.chat(prompt);
+    generatedText = result;
+    input.value = result; // заменяем текст на сгенерированный
+  } catch (err) {
+    console.error("Ошибка генерации:", err);
+    input.value = "Ошибка генерации RP.";
+  } finally {
+    // скрыть лоадер
+    loadingBox.style.display = "none";
+  }
 }
 
 // вставка в основное поле (но не сразу на картинку)
@@ -223,6 +277,8 @@ function insertRP() {
     document.getElementById("text").value = generatedText;
   }
 }
+
+
 </script>
 </body>
 </html>
