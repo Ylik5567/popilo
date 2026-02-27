@@ -189,10 +189,16 @@ function saveImage() {
   });
 }
 
-// генерация через Puter.js
 async function generateRP() {
   const input = document.getElementById("genInput");
-  const prompt = "Сгенерируй RP отыгровку /me и /do про: " + input.value;
+  const prompt = `
+Сгенерируй только RP-отыгровки для игры.
+Формат: каждая строка начинается с /me или /do.
+Не добавляй пояснений, вариантов, комментариев.
+Сделай минимум 8 строк и максимум 10 строк.
+Тема: ${input.value}
+`;
+
   const result = await puter.ai.chat(prompt);
   generatedText = result;
   input.value = result; // заменяем текст на сгенерированный
