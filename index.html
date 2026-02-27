@@ -66,6 +66,9 @@ input, textarea {
 textarea {
   resize: none; /* запрет на растягивание */
 }
+#genInput {
+  height: 200px; /* фиксированная высота вниз */
+}
 button {
   background: linear-gradient(90deg, #000000, #222222);
   border: none;
@@ -132,7 +135,7 @@ button:hover {
   <!-- маленькое окно справа -->
   <div class="side">
     <h3>Генерация RP</h3>
-    <textarea id="genInput" rows="6" placeholder="Напиши задание (например: помыть посуду)"></textarea>
+    <textarea id="genInput" placeholder="Напиши задание (например: помыть посуду)"></textarea>
     <button onclick="generateRP()">Сгенерировать</button>
     <button onclick="insertRP()">Вставить</button>
   </div>
