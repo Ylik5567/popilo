@@ -4,13 +4,6 @@
 <meta charset="UTF-8">
 <title>♡ Сайтик от санёчка ♡</title>
 <style>
-@font-face {
-  font-family: 'FFF';
-  src: url('fff.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -50,7 +43,6 @@ h2 {
   font-size: 28px;
   color: #fff;
   text-shadow: 0 0 12px rgba(0,0,0,0.9); 
-  font-family: 'FFF', Arial, sans-serif; /* применяем твой шрифт */
 }
 
 h3 {
@@ -58,14 +50,6 @@ h3 {
   color: #fff;
   margin-bottom: 10px;
 }
-
-
-
-
-
-
-
-
 
 input, textarea {
   width: 90%;
@@ -185,7 +169,9 @@ button:hover {
 <div class="container">
   <!-- основное окно -->
   <div class="main">
-    <h2>♡ Сайтик от санёчка ♡</h2>
+    <!-- заменили h2 на картинку -->
+    <img src="title.png" alt="Заголовок" class="title-img">
+
     <input type="file" id="photo" accept="image/*" onchange="loadPhoto(event)">
     <input type="text" id="nick" placeholder="Напиши Nick_Name">
     <textarea id="text" rows="3" placeholder="Напиши RP отыгровку (/me или /do)"></textarea>
