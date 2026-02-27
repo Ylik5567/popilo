@@ -63,6 +63,9 @@ input, textarea {
   color: #fff;
   box-shadow: inset 0 0 8px rgba(0,0,0,0.8); 
 }
+textarea {
+  resize: none; /* запрет на растягивание */
+}
 button {
   background: linear-gradient(90deg, #000000, #222222);
   border: none;
@@ -129,7 +132,7 @@ button:hover {
   <!-- маленькое окно справа -->
   <div class="side">
     <h3>Генерация RP</h3>
-    <textarea id="genInput" rows="3" placeholder="Напиши задание (например: помыть посуду)"></textarea>
+    <textarea id="genInput" rows="6" placeholder="Напиши задание (например: помыть посуду)"></textarea>
     <button onclick="generateRP()">Сгенерировать</button>
     <button onclick="insertRP()">Вставить</button>
   </div>
@@ -189,6 +192,7 @@ function saveImage() {
   });
 }
 
+// генерация через Puter.js
 async function generateRP() {
   const input = document.getElementById("genInput");
   const prompt = `
@@ -198,17 +202,15 @@ async function generateRP() {
 Сделай минимум 8 строк и максимум 10 строк.
 Тема: ${input.value}
 `;
-
   const result = await puter.ai.chat(prompt);
   generatedText = result;
   input.value = result; // заменяем текст на сгенерированный
 }
 
-// вставка в основное поле и сразу на картинку
+// вставка в основное поле (но не сразу на картинку)
 function insertRP() {
   if (generatedText) {
     document.getElementById("text").value = generatedText;
-    formatText(); // сразу отрисовываем на картинке
   }
 }
 </script>
