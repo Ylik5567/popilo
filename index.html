@@ -53,10 +53,10 @@ h3 {
 
 
 .title-img {
-  height: 60px;          /* высота как у заголовка */
-  width: auto;           /* ширина подстраивается */
+  height: 60px;         
+  width: auto;           
   display: block;
-  margin: 0 auto 20px;   /* центрируем и отступ снизу */
+  margin: 0 auto 20px;  
   filter: drop-shadow(0 0 12px rgba(0,0,0,0.9));
 }
 
@@ -128,7 +128,7 @@ button:hover {
                -0.3px 0.3px 0 #000, 0.3px 0.3px 0 #000;
 }
 
-/* Лоадеры */
+
 .loaderBox {
   position: fixed;
   bottom: 30px;
@@ -176,9 +176,9 @@ button:hover {
 </head>
 <body>
 <div class="container">
-  <!-- основное окно -->
+ 
   <div class="main">
-    <!-- заменили h2 на картинку -->
+   
     <img src="title.png" alt="Заголовок" class="title-img">
 
     <input type="file" id="photo" accept="image/*" onchange="loadPhoto(event)">
@@ -193,7 +193,7 @@ button:hover {
     </div>
   </div>
 
-  <!-- маленькое окно справа -->
+
   <div class="side">
     <h3>Генерация RP</h3>
     <textarea id="genInput" placeholder="Напиши задание (например: помыть посуду)"></textarea>
@@ -202,7 +202,7 @@ button:hover {
   </div>
 </div>
 
-<!-- Лоадеры -->
+
 <div id="loadingBox" class="loaderBox">
   <img src="toit.png" alt="loading">
   <span>Генерируем…</span>
@@ -266,13 +266,13 @@ function formatText() {
   const overlay = document.getElementById('overlay');
   const photo = document.getElementById('output').src;
 
-  // проверка на ник
+
   if (!nick) {
     showError("toit.png", "Введите ник!");
     return;
   }
 
-  // проверка на фото
+
   if (!photo) {
     showError("toit.png", "Выберите фото!");
     return;
@@ -311,12 +311,12 @@ function saveImage() {
   });
 }
 
-// генерация через Puter.js
+
 async function generateRP() {
   const input = document.getElementById("genInput");
   const loadingBox = document.getElementById("loadingBox");
   
-  // показать лоадер
+
   loadingBox.style.display = "flex";
   loadingBox.classList.add("fadeIn");
 
@@ -331,17 +331,17 @@ async function generateRP() {
   try {
     const result = await puter.ai.chat(prompt);
     generatedText = result;
-    input.value = result; // заменяем текст на сгенерированный
+    input.value = result; 
   } catch (err) {
     console.error("Ошибка генерации:", err);
     input.value = "Ошибка генерации RP.";
   } finally {
-    // плавное скрытие лоадера
+   
     hideLoader("loadingBox");
   }
 }
 
-// вставка в основное поле (но не сразу на картинку)
+
 function insertRP() {
   if (generatedText) {
     document.getElementById("text").value = generatedText;
