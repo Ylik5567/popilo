@@ -1,4 +1,3 @@
-/* Левое меню */
 #sideMenu {
   position: fixed;
   top: 0; left: -400px;
@@ -13,7 +12,6 @@
 }
 #sideMenu.open { left: 0; }
 
-/* Заголовок */
 #sideMenu h2 {
   font-size: 24px;
   margin-bottom: 15px;
@@ -22,7 +20,6 @@
   text-align: center;
 }
 
-/* Чат‑история */
 #messages {
   flex: 1;
   overflow-y: auto;
@@ -33,7 +30,6 @@
   box-shadow: inset 0 0 8px rgba(0,0,0,0.8);
 }
 
-/* Сообщения */
 .msg-user {
   text-align: left;
   color: #ED93EA;
@@ -47,7 +43,6 @@
   font-style: italic;
 }
 
-/* Ввод */
 #chatInput {
   width: 100%;
   padding: 12px;
@@ -58,7 +53,6 @@
   margin-bottom: 10px;
 }
 
-/* Кнопка */
 #sendBtn {
   padding: 12px;
   border-radius: 12px;
@@ -71,4 +65,14 @@
 #sendBtn:hover {
   transform: scale(1.05);
   box-shadow: 0 0 15px rgba(237,147,234,1);
+}
+
+#overlayMenu {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  backdrop-filter: blur(8px);
+  background: rgba(0,0,0,0.4);
+  display: none;
+  z-index: 1050;
 }

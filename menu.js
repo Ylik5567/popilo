@@ -9,6 +9,7 @@ const messages = document.getElementById("messages");
 logoBtn.onclick = () => {
   sideMenu.classList.add("open");
   overlayMenu.style.display = "block";
+  loadHistory();
 };
 
 // закрыть меню при клике на фон
@@ -17,7 +18,7 @@ overlayMenu.onclick = () => {
   overlayMenu.style.display = "none";
 };
 
-// отправка вопроса в Puter AI
+// отправка сообщения
 sendBtn.onclick = async () => {
   const text = chatInput.value.trim();
   if (!text) return;
@@ -42,7 +43,7 @@ sendBtn.onclick = async () => {
   }
 };
 
-// загрузка истории при открытии меню
+// загрузка истории
 async function loadHistory() {
   try {
     const history = await puter.kv.get("chat_history");
