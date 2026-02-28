@@ -14,6 +14,32 @@ body {
   background-size: cover;
 }
 
+
+.video-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999; /* поверх всего */
+}
+
+.video-overlay video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* растягивает на весь экран */
+}
+.fadeOut {
+  animation: fadeOut 2s ease forwards;
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; visibility: hidden; }
+}
+
+
 .modal {
   position: fixed;
   top: 0; left: 0;
@@ -222,6 +248,25 @@ button:hover {
 </style>
 </head>
 <body>
+
+<!-- Видео-заставка -->
+<div id="introVideo" class="video-overlay">
+  <video id="introVid" autoplay muted>
+    <source src="intro.mp4" type="video/mp4">
+    Ваш браузер не поддерживает видео.
+  </video>
+</div>
+
+const introVid = document.getElementById("introVid");
+const introVideo = document.getElementById("introVideo");
+
+introVid.onended = () => {
+  introVideo.classList.add("fadeOut"); // плавное исчезновение
+  setTimeout(() => {
+    introVideo.style.display = "none"; // убираем блок
+  }, 2000); // совпадает с анимацией
+};
+
 <div id="authModal" class="modal">
   <div class="modal-content">
     <h2>🚪 Вход обязателен</h2>
