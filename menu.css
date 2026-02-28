@@ -1,21 +1,81 @@
-/* Контейнер чата */
-#chatContainer {
-  display: none; /* скрыт по умолчанию */
+/* Логотип */
+#logoBtn {
+  position: fixed;
+  top: 20px; left: 20px;
+  width: 60px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+/* Левое меню */
+#sideMenu {
+  position: fixed;
+  top: 0; left: -300px;
+  width: 300px; height: 100%;
+  background: rgba(20,20,20,0.95);
+  color: #fff;
+  padding: 20px;
+  transition: left 0.5s ease;
+  z-index: 1100;
+}
+#sideMenu.open { left: 0; }
+
+#sideMenu h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #ED93EA;
+  text-shadow: 0 0 12px rgba(237,147,234,0.9);
+}
+
+#sideMenu button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 12px;
+  background: linear-gradient(90deg,#ED93EA,#35658B);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#sideMenu button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(237,147,234,1);
+}
+
+/* Фон блюр */
+#overlayMenu {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  backdrop-filter: blur(8px);
+  background: rgba(0,0,0,0.4);
+  display: none;
+  z-index: 1050;
+}
+
+/* Общий контейнер */
+.container {
+  display: none;
   margin: 40px auto;
   width: 900px;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.6);
   backdrop-filter: blur(12px);
   padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 0 25px rgba(237,147,234,0.8);
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0 0 25px rgba(0,0,0,0.9);
   color: #fff;
-  font-family: Arial, sans-serif;
 }
 
-/* Заголовок */
-#chatContainer h2 {
+/* Чат */
+.chat-style {
+  background: rgba(0,0,0,0.7);
+  box-shadow: 0 0 25px rgba(237,147,234,0.8);
+  flex-direction: column;
+}
+
+.chat-style h2 {
   font-size: 28px;
   margin-bottom: 20px;
   color: #ED93EA;
@@ -23,7 +83,6 @@
   text-align: center;
 }
 
-/* Сообщения */
 #messages {
   flex: 1;
   overflow-y: auto;
@@ -35,7 +94,6 @@
   box-shadow: inset 0 0 8px rgba(0,0,0,0.8);
 }
 
-/* Ввод */
 #chatInput {
   width: 100%;
   padding: 12px;
@@ -47,7 +105,6 @@
   margin-bottom: 10px;
 }
 
-/* Кнопка отправки */
 #sendBtn {
   padding: 12px;
   border-radius: 12px;
@@ -62,7 +119,6 @@
   box-shadow: 0 0 15px rgba(237,147,234,1);
 }
 
-/* Сообщения пользователя и AI */
 .msg-user {
   color: #ED93EA;
   margin: 5px 0;

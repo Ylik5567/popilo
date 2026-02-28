@@ -1,14 +1,39 @@
 const rpContainer = document.getElementById("rpContainer");
 const chatContainer = document.getElementById("chatContainer");
+const sideMenu = document.getElementById("sideMenu");
+const overlayMenu = document.getElementById("overlayMenu");
+const logoBtn = document.getElementById("logoBtn");
 const sendBtn = document.getElementById("sendBtn");
 const chatInput = document.getElementById("chatInput");
 const messages = document.getElementById("messages");
 
-// кнопка "ЧАТ С AI" из меню
+// открыть меню
+logoBtn.onclick = () => {
+  sideMenu.classList.add("open");
+  overlayMenu.style.display = "block";
+};
+
+// закрыть меню при клике на фон
+overlayMenu.onclick = () => {
+  sideMenu.classList.remove("open");
+  overlayMenu.style.display = "none";
+};
+
+// показать RP
+document.getElementById("rpBtn").onclick = () => {
+  rpContainer.style.display = "flex";
+  chatContainer.style.display = "none";
+  sideMenu.classList.remove("open");
+  overlayMenu.style.display = "none";
+};
+
+// показать ЧАТ
 document.getElementById("chatBtn").onclick = () => {
-  rpContainer.style.display = "none";   // скрываем RP окно
-  chatContainer.style.display = "flex"; // показываем чат
-  loadHistory(); // подтягиваем историю
+  rpContainer.style.display = "none";
+  chatContainer.style.display = "flex";
+  sideMenu.classList.remove("open");
+  overlayMenu.style.display = "none";
+  loadHistory();
 };
 
 // отправка вопроса в Puter AI
@@ -16,7 +41,6 @@ sendBtn.onclick = async () => {
   const text = chatInput.value.trim();
   if (!text) return;
 
-  // сообщение пользователя
   const userMsg = document.createElement("div");
   userMsg.className = "msg-user";
   userMsg.textContent = "Вы: " + text;
@@ -31,15 +55,13 @@ sendBtn.onclick = async () => {
     aiMsg.textContent = "VELVET: " + result;
     messages.appendChild(aiMsg);
 
-    // сохраняем историю
     await puter.kv.set("chat_history", messages.innerHTML);
-
   } catch (err) {
     console.error(err);
   }
 };
 
-// загрузка истории при входе
+// загрузка истории
 async function loadHistory() {
   try {
     const history = await puter.kv.get("chat_history");
