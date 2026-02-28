@@ -1,68 +1,75 @@
-#logoBtn {
-  position: fixed;
-  top: 20px; left: 20px;
-  width: 60px;
-  cursor: pointer;
-  z-index: 1000;
-}
-
-#sideMenu {
-  position: fixed;
-  top: 0; left: -300px;
-  width: 300px; height: 100%;
-  background: rgba(20,20,20,0.95);
-  color: #fff;
-  padding: 20px;
-  transition: left 0.5s ease;
-  z-index: 1100;
-}
-#sideMenu.open { left: 0; }
-
-#overlayMenu {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  backdrop-filter: blur(8px);
-  background: rgba(0,0,0,0.4);
-  display: none;
-  z-index: 1050;
-}
-
-#chatBox {
-  position: fixed;
-  bottom: 0; right: 0;
-  width: 400px; height: 500px;
-  background: #111;
-  color: #fff;
-  display: none;
+/* Контейнер чата */
+#chatContainer {
+  display: none; /* скрыт по умолчанию */
+  margin: 40px auto;
+  width: 900px;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(237,147,234,0.8);
+  display: flex;
   flex-direction: column;
-  padding: 10px;
-  z-index: 1200;
+  color: #fff;
+  font-family: Arial, sans-serif;
 }
+
+/* Заголовок */
+#chatContainer h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #ED93EA;
+  text-shadow: 0 0 12px rgba(237,147,234,0.9);
+  text-align: center;
+}
+
+/* Сообщения */
 #messages {
   flex: 1;
   overflow-y: auto;
   text-align: left;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.8);
 }
+
+/* Ввод */
 #chatInput {
   width: 100%;
-  padding: 8px;
-  margin-top: 10px;
-  border-radius: 8px;
+  padding: 12px;
+  border-radius: 12px;
   border: none;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.08);
   color: #fff;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.8);
+  margin-bottom: 10px;
 }
+
+/* Кнопка отправки */
 #sendBtn {
-  margin-top: 10px;
-  padding: 8px;
-  border-radius: 8px;
-  background: linear-gradient(90deg,#000,#222);
+  padding: 12px;
+  border-radius: 12px;
+  background: linear-gradient(90deg,#ED93EA,#35658B);
   color: #fff;
   border: none;
   cursor: pointer;
+  transition: 0.3s;
 }
 #sendBtn:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(0,0,0,1);
+  box-shadow: 0 0 15px rgba(237,147,234,1);
+}
+
+/* Сообщения пользователя и AI */
+.msg-user {
+  color: #ED93EA;
+  margin: 5px 0;
+  font-weight: bold;
+}
+.msg-ai {
+  color: #35658B;
+  margin: 5px 0;
+  font-style: italic;
 }
