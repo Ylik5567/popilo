@@ -250,8 +250,10 @@ button:hover {
 
 
 
-<div id="rpContainer" class="container">
+<div class="container">
+ 
   <div class="main">
+   
     <img src="title.png" alt="Заголовок" class="title-img">
 
     <input type="file" id="photo" accept="image/*" onchange="loadPhoto(event)">
@@ -266,6 +268,7 @@ button:hover {
     </div>
   </div>
 
+
   <div class="side">
     <h3>Генерация RP</h3>
     <textarea id="genInput" placeholder="Напиши задание (например: помыть посуду)"></textarea>
@@ -275,14 +278,6 @@ button:hover {
 </div>
 
 
-<div id="chatContainer" class="container chat-style">
-  <div class="main">
-    <h2>VELVET AI</h2>
-    <div id="messages"></div>
-    <input id="chatInput" placeholder="Введите вопрос...">
-    <button id="sendBtn">Отправить</button>
-  </div>
-</div>
 
 <div id="loadingBox" class="loaderBox">
   <img src="toit.png" alt="loading">
