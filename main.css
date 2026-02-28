@@ -1,0 +1,199 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  background: url("vele.png") no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* Модалка */
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.modal-content {
+  background: rgba(20,20,20,0.9);
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 0 25px rgba(0,0,0,0.9);
+  animation: fadeIn 0.5s ease;
+}
+.modal-content h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+.modal-content p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+.modal-content button {
+  background: linear-gradient(90deg, #000000, #222222);
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.modal-content button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0,0,0,1);
+}
+
+/* RP контейнер */
+.container {
+  margin: 40px auto;
+  width: 900px;
+  display: flex;
+  gap: 20px;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.9); 
+}
+.main { flex: 2; }
+.side {
+  flex: 1;
+  background: rgba(0,0,0,0.6);
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.8);
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #fff;
+  text-shadow: 0 0 12px rgba(0,0,0,0.9); 
+}
+h3 {
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.title-img {
+  height: 60px;         
+  width: auto;           
+  display: block;
+  margin: 0 auto 20px;  
+  filter: drop-shadow(0 0 12px rgba(0,0,0,0.9));
+}
+
+/* Инпуты и кнопки */
+input, textarea {
+  width: 90%;
+  margin: 12px 0;
+  padding: 12px;
+  font-size: 15px;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.8); 
+}
+textarea { resize: none; }
+#genInput { height: 200px; }
+
+button {
+  background: linear-gradient(90deg, #000000, #222222);
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 10px;
+  margin: 5px;
+}
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0,0,0,1);
+}
+
+/* Превью RP */
+.preview {
+  position: relative;
+  display: inline-block;
+  margin-top: 25px;
+}
+.preview img {
+  max-width: 100%;
+  border: none;
+}
+.overlay {
+  position: absolute;
+  top: 4px;
+  left: 12px;
+  font-size: 11px;
+  text-align: left;
+}
+
+/* RP стили */
+.me {
+  font-size: 7px;
+  font-weight: 400;
+  font-family: Arial, sans-serif;
+  color: #ED93EA;
+  text-shadow: -0.3px -0.3px 0 #000, 0.3px -0.3px 0 #000,
+               -0.3px 0.3px 0 #000, 0.3px 0.3px 0 #000;
+}
+.do {
+  font-size: 7px;
+  font-weight: 400;
+  font-family: Arial, sans-serif;
+  color: #35658B;
+  text-shadow: -0.3px -0.3px 0 #000, 0.3px -0.3px 0 #000,
+               -0.3px 0.3px 0 #000, 0.3px 0.3px 0 #000;
+}
+
+/* Лоадеры */
+.loaderBox {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  padding: 15px 30px;
+  border-radius: 15px;
+  display: none;
+  align-items: center;
+  gap: 15px;
+  font-size: 18px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.9);
+}
+.loaderBox img {
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+}
+
+.fadeIn { animation: fadeIn 0.5s ease forwards; }
+.fadeOut { animation: fadeOut 0.5s ease forwards; }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateX(-50%) translateY(0); }
+  to   { opacity: 0; transform: translateX(-50%) translateY(20px); }
+}

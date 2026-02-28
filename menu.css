@@ -8,7 +8,7 @@
   z-index: 1200;
 }
 
-/* Левое меню — скрыто за экраном */
+/* Левое меню */
 #sideMenu {
   position: fixed;
   top: 0;
@@ -29,7 +29,7 @@
   left: 0; /* выезжает вправо */
 }
 
-/* Заголовок */
+/* Заголовок меню */
 #sideMenu h2 {
   font-size: 24px;
   margin-bottom: 15px;
