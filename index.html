@@ -14,79 +14,6 @@ body {
   background-size: cover;
 }
 
-
-.video-overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 99999; /* поверх всего */
-}
-
-.video-overlay video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* растягивает на весь экран */
-}
-.fadeOut {
-  animation: fadeOut 2s ease forwards;
-}
-@keyframes fadeOut {
-  from { opacity: 1; }
-  to   { opacity: 0; visibility: hidden; }
-}
-
-
-.modal {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(8px); /* мутный фон */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.modal-content {
-  background: rgba(20,20,20,0.9);
-  padding: 30px;
-  border-radius: 15px;
-  text-align: center;
-  color: #fff;
-  box-shadow: 0 0 25px rgba(0,0,0,0.9);
-  animation: fadeIn 0.5s ease;
-}
-
-.modal-content h2 {
-  font-size: 24px;
-  margin-bottom: 15px;
-  text-shadow: 0 0 10px rgba(0,0,0,0.8);
-}
-
-.modal-content p {
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.modal-content button {
-  background: linear-gradient(90deg, #000000, #222222);
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 10px;
-}
-.modal-content button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(0,0,0,1);
-}
-
 .container {
   margin: 40px auto;
   width: 900px;
@@ -126,10 +53,10 @@ h3 {
 
 
 .title-img {
-  height: 60px;          /* высота как у заголовка */
-  width: auto;           /* ширина подстраивается */
+  height: 60px;         
+  width: auto;           
   display: block;
-  margin: 0 auto 20px;   /* центрируем и отступ снизу */
+  margin: 0 auto 20px;  
   filter: drop-shadow(0 0 12px rgba(0,0,0,0.9));
 }
 
@@ -201,7 +128,7 @@ button:hover {
                -0.3px 0.3px 0 #000, 0.3px 0.3px 0 #000;
 }
 
-/* Лоадеры */
+
 .loaderBox {
   position: fixed;
   bottom: 30px;
@@ -248,38 +175,10 @@ button:hover {
 </style>
 </head>
 <body>
-
-<!-- Видео-заставка -->
-<div id="introVideo" class="video-overlay">
-  <video id="introVid" autoplay muted>
-    <source src="intro.mp4" type="video/mp4">
-    Ваш браузер не поддерживает видео.
-  </video>
-</div>
-
-const introVid = document.getElementById("introVid");
-const introVideo = document.getElementById("introVideo");
-
-introVid.onended = () => {
-  introVideo.classList.add("fadeOut"); // плавное исчезновение
-  setTimeout(() => {
-    introVideo.style.display = "none"; // убираем блок
-  }, 2000); // совпадает с анимацией
-};
-
-<div id="authModal" class="modal">
-  <div class="modal-content">
-    <h2>🚪 Вход обязателен</h2>
-    <p>Вы не можете пользоваться приложением без входа в Puter</p>
-    <button onclick="signIn()">Войти</button>
-  </div>
-</div>
-
-
 <div class="container">
-  <!-- основное окно -->
+ 
   <div class="main">
-    <!-- заменили h2 на картинку -->
+   
     <img src="title.png" alt="Заголовок" class="title-img">
 
     <input type="file" id="photo" accept="image/*" onchange="loadPhoto(event)">
@@ -294,7 +193,7 @@ introVid.onended = () => {
     </div>
   </div>
 
-  <!-- маленькое окно справа -->
+
   <div class="side">
     <h3>Генерация RP</h3>
     <textarea id="genInput" placeholder="Напиши задание (например: помыть посуду)"></textarea>
@@ -303,7 +202,7 @@ introVid.onended = () => {
   </div>
 </div>
 
-<!-- Лоадеры -->
+
 <div id="loadingBox" class="loaderBox">
   <img src="toit.png" alt="loading">
   <span>Генерируем…</span>
@@ -320,25 +219,6 @@ introVid.onended = () => {
 <script>
 let globalID = null;
 let generatedText = "";
-
-async function signIn() {
-  try {
-    await puter.auth.signIn(); // открывает окно входа Puter
-    document.getElementById("authModal").style.display = "none"; // скрываем модалку после входа
-  } catch (err) {
-    console.error("Ошибка входа:", err);
-  }
-}
-
-// проверка при загрузке страницы
-window.onload = async () => {
-  const user = await puter.auth.getUser();
-  if (!user) {
-    document.getElementById("authModal").style.display = "flex";
-  } else {
-    document.getElementById("authModal").style.display = "none";
-  }
-};
 
 function loadPhoto(event) {
   const output = document.getElementById('output');
@@ -386,13 +266,13 @@ function formatText() {
   const overlay = document.getElementById('overlay');
   const photo = document.getElementById('output').src;
 
-  // проверка на ник
+
   if (!nick) {
     showError("toit.png", "Введите ник!");
     return;
   }
 
-  // проверка на фото
+
   if (!photo) {
     showError("toit.png", "Выберите фото!");
     return;
@@ -431,12 +311,12 @@ function saveImage() {
   });
 }
 
-// генерация через Puter.js
+
 async function generateRP() {
   const input = document.getElementById("genInput");
   const loadingBox = document.getElementById("loadingBox");
   
-  // показать лоадер
+
   loadingBox.style.display = "flex";
   loadingBox.classList.add("fadeIn");
 
@@ -451,17 +331,17 @@ async function generateRP() {
   try {
     const result = await puter.ai.chat(prompt);
     generatedText = result;
-    input.value = result; // заменяем текст на сгенерированный
+    input.value = result; 
   } catch (err) {
     console.error("Ошибка генерации:", err);
     input.value = "Ошибка генерации RP.";
   } finally {
-    // плавное скрытие лоадера
+   
     hideLoader("loadingBox");
   }
 }
 
-// вставка в основное поле (но не сразу на картинку)
+
 function insertRP() {
   if (generatedText) {
     document.getElementById("text").value = generatedText;
