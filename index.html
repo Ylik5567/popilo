@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карточки 3D Моделей</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+</head>
+<body>
+
+    <div class="card-container">
+        <div class="card">
+            <h3>Моя первая модель</h3>
+            
+            <model-viewer 
+                src="model.glb" 
+                alt="3D модель" 
+                auto-rotate 
+                camera-controls>
+            </model-viewer>
+            
+            <p>Здесь можно добавить описание. Покрути модель мышкой!</p>
+        </div>
+        
+        </div>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    padding: 40px;
+    margin: 0;
+}
+
+/* Контейнер в виде сетки, чтобы карточки выстраивались в ряд */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Оформление самой карточки */
+.card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Настраиваем размер окна с 3D моделью */
+model-viewer {
+    width: 100%;
+    height: 250px;
+    background-color: #eceff1;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
